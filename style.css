@@ -8,7 +8,7 @@
 /* ── Page ── */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0f2f5;
+  background: #f5f5f5;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -17,57 +17,117 @@ body {
 
 /* ── Card ── */
 .container {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   padding: 36px 32px;
   width: 100%;
-  max-width: 480px;
+  max-width: 540px;
   height: fit-content;
 }
 
 h1 {
-  font-size: 1.75rem;
-  color: #1e1e2e;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
   text-align: center;
   margin-bottom: 28px;
+  letter-spacing: -0.01em;
 }
 
-/* ── Input row ── */
+/* ── Input form wrapper ── */
+.input-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+/* ── Input rows ── */
 .input-row {
   display: flex;
   gap: 8px;
-  margin-bottom: 28px;
+  align-items: flex-end;
 }
 
-.input-row input {
+.input-row input[type="text"] {
   flex: 1;
-  padding: 10px 14px;
-  border: 2px solid #dde1f0;
-  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   font-size: 0.95rem;
+  font-family: inherit;
+  color: #111;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.15s;
+  background: #fff;
 }
 
-.input-row input:focus {
-  border-color: #5c6bc0;
+.input-row input[type="text"]:focus {
+  border-color: #000;
 }
 
-.input-row button {
-  padding: 10px 22px;
-  background: #5c6bc0;
+.input-row input[type="text"]::placeholder {
+  color: #bbb;
+}
+
+/* ── Field group (label + input stacked) ── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-group label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.field-group input[type="date"],
+.field-group input[type="time"] {
+  padding: 9px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: #333;
+  outline: none;
+  transition: border-color 0.15s;
+  background: #fff;
+}
+
+.field-group input[type="date"]:focus,
+.field-group input[type="time"]:focus {
+  border-color: #000;
+}
+
+/* ── Add button ── */
+#addBtn {
+  padding: 10px 20px;
+  background: #000;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
   font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.15s;
+  align-self: flex-end;
 }
 
-.input-row button:hover {
-  background: #4a58b0;
+#addBtn:hover {
+  background: #222;
+}
+
+/* ── Divider above task list ── */
+#taskList:not(:empty) {
+  border-top: 1px solid #efefef;
+  padding-top: 16px;
 }
 
 /* ── Task list ── */
@@ -75,61 +135,119 @@ h1 {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 /* ── Single task ── */
 .task-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
-  background: #f7f8ff;
-  border: 1px solid #e4e7f5;
-  border-radius: 8px;
-  padding: 12px 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.task-item:last-child {
+  border-bottom: none;
 }
 
 .task-item input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
-  accent-color: #5c6bc0;
+  accent-color: #000;
   flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ── Task body (text + metadata) ── */
+.task-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .task-text {
-  flex: 1;
   font-size: 0.95rem;
-  color: #333;
+  color: #111;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+/* ── Timestamp metadata ── */
+.task-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.meta-created {
+  font-size: 0.72rem;
+  color: #bbb;
+}
+
+.meta-due {
+  font-size: 0.72rem;
+  color: #555;
+  font-weight: 500;
 }
 
 /* Completed state */
 .task-item.done .task-text {
   text-decoration: line-through;
-  color: #aaa;
+  color: #ccc;
+}
+
+.task-item.done .meta-created,
+.task-item.done .meta-due {
+  color: #ddd;
 }
 
 /* ── Delete button ── */
 .delete-btn {
   background: none;
   border: none;
-  color: #e53935;
-  font-size: 1rem;
+  color: #ccc;
+  font-size: 0.85rem;
   cursor: pointer;
-  padding: 2px 8px;
-  border-radius: 6px;
-  transition: background 0.15s;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .delete-btn:hover {
-  background: #fde8e8;
+  color: #000;
+  background: #f0f0f0;
 }
 
 /* ── Empty message ── */
 .empty-msg {
   text-align: center;
-  color: #bbb;
-  font-size: 0.9rem;
+  color: #ccc;
+  font-size: 0.88rem;
   margin-top: 20px;
+}
+
+/* ── List footer (Clear All) ── */
+.list-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.clear-all-btn {
+  background: none;
+  border: none;
+  font-size: 0.78rem;
+  color: #bbb;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.clear-all-btn:hover {
+  color: #000;
 }
